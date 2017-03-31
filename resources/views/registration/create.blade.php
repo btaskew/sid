@@ -3,7 +3,7 @@
 <div class="col-sm-8 blog-main">
   <h1>Register</h1>
   <hr />
-  <form method="POST" action="/register">
+  <form method="POST" action="/register" id="register">
     {{csrf_field()}}
 
     <div class="form-group">
@@ -30,17 +30,17 @@
       <label for="role">What is your role:</label>
       <div class="row">
         <div class="col-md-2">
-          <input type="radio" class="form-control" name="role" value="student" required> Student
+          <input type="radio" class="form-control" name="role" value="student" required @click="studentChecked"> Student
         </div>
         <div class="col-md-2">
-          <input type="radio" class="form-control" name="role" value="staff" required> Staff
+          <input type="radio" class="form-control" name="role" value="staff" required @click="staffChecked"> Staff
         </div>
       </div>
     </div>
 
     <div class="form-group">
       <label for="department">If staff, please enter your department:</label>
-      <input type="test" class="form-control" id="department" name="department">
+      <input type="test" class="form-control" id="department" name="department" :disabled="isDisabled" required>
     </div>
 
     <div class="form-group">
@@ -48,5 +48,27 @@
     </div>
 
   </form>
+
+  <script>
+    new Vue({
+      el: '#register',
+
+      data: {
+        isDisabled: true
+      },
+
+      methods: {
+        staffChecked()
+        {
+          this.isDisabled = false;
+        },
+        studentChecked()
+        {
+          this.isDisabled = true;
+        }
+      },
+
+    })
+  </script>
 </div>
 @endsection

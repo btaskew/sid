@@ -1,3 +1,4 @@
+
 <?php
 
 /*
@@ -13,7 +14,7 @@
 
 Route::get('/', function () {
     return view('partials/master');
-});
+})->name('home');
 
 Route::get('/register', 'RegistrationController@create');
 Route::post('/register', 'RegistrationController@store');
