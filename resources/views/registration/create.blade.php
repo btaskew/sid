@@ -47,6 +47,8 @@
       <button type="submit" class="btn btn-primary" name="register">Register</button>
     </div>
 
+    @include('partials.errors')
+
   </form>
 
   <script>

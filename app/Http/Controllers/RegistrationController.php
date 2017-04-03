@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\Role;
 use Illuminate\Http\Request;
 use App\Http\Requests\RegistrationRequest;
 
@@ -23,11 +24,10 @@ class RegistrationController extends Controller
       'department' => request('department')
     ]);
 
-    dd($user);
 
     auth()->login($user);
 
-    //session()->flash('message', 'Thanks so much for signing up!');
+    session()->flash('message', 'Thanks so much for signing up!');
 
     return redirect()->home();
   }
