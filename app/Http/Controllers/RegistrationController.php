@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Student;
-use App\Staff;
+use App\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\RegistrationRequest;
 
@@ -16,24 +15,13 @@ class RegistrationController extends Controller
 
   public function store(RegistrationRequest $request)
   {
-    //$this->determineRole($request);
-    if($request->role === "staff")
-    {
-      $user = Staff::create([
-        'name' => request('name'),
-        'email' => request('email'),
-        'password' => bcrypt(request('password')),
-        'department' => request('department')
-      ]);
-    }
-    else
-    {
-      $user = Student::create([
-        'name' => request('name'),
-        'email' => request('email'),
-        'password' => bcrypt(request('password')),
-      ]);
-    }
+    $user = User::create([
+      'role_id' => Role::id(request('role')),
+      'name' => request('name'),
+      'email' => request('email'),
+      'password' => bcrypt(request('password')),
+      'department' => request('department')
+    ]);
 
     dd($user);
 
@@ -44,10 +32,6 @@ class RegistrationController extends Controller
     return redirect()->home();
   }
 
-  protected function determineRole(RegistrationRequest $request)
-  {
-    dd($request->role);
-  }
 
 
 }
