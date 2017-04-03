@@ -19,4 +19,16 @@ class User extends Authenticatable
     {
       return $this->hasMany(Role::class);
     }
+
+    public static function staff()
+    {
+      return User::where('role_id', 1)
+        ->orderBy('department')
+        ->get();
+    }
+
+    public function log(Call $call)
+    {
+      $this->calls()->save($call);
+    }
 }
