@@ -20,4 +20,9 @@ class Role extends Model
     }
     die("Array key does not exists");
   }
+
+  public function user()
+  {
+    return $this->hasMany(User::class);
+  }
 }
