@@ -14,7 +14,8 @@ class CallController extends Controller
   {
     $calls = auth()->user()->calls()->get();
     $calls = $this->render($calls);
-    return view('calls.index', compact('calls'));
+    $actions = $this->loadActions($calls);
+    return view('calls.index', compact('calls', 'actions'));
   }
 
   public function create()
@@ -39,5 +40,19 @@ class CallController extends Controller
       $call->assigned_to = User::renderStaff(User::find($call->staff_id));
     }
     return $calls;
+  }
+
+  protected function loadActions($calls)
+  {
+    $actions=[];
+    foreach($calls as $call)
+    {
+      $collection = $call->actions()->get();
+      if(!$collection->isEmpty())
+      {
+        $actions[$call->id] = $collection;
+      }
+    }
+    return $actions;
   }
 }

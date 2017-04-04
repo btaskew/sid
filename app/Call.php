@@ -15,6 +15,11 @@ class Call extends Model
     return $this->belongsTo(User::class);
   }
 
+  public function actions()
+  {
+    return $this->hasMany(Action::class);
+  }
+
   protected function renderLevel($level)
   {
     if($level === 1)

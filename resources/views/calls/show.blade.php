@@ -5,18 +5,21 @@
         <h3 class="panel-title">{{$call->title}}</h3>
         <h4 class="panel-title date-created">Call Made: {{$call->created_at->format('j M Y, g:i a')}}</h4>
       </div>
+
       <div class="panel-body">
         <p>
           {{$call->description}}
         </p>
 
-        @if($call->response)
-        <div class="request">
-          <div class="well">
-            <h4>Request for more information: </h4>
-            {{$call->response}}
+        @if(array_key_exists($call->id, $actions))
+          @foreach($actions[$call->id] as $action)
+          <div class="request">
+            <div class="well">
+              <h4>{{$action->type}} </h4>
+              {{$action->content}}
+            </div>
           </div>
-        </div>
+          @endforeach
         @endif
 
         <hr>
@@ -30,6 +33,7 @@
           <a href="/calls/{{$call->id}}/edit"><button type="button" class="btn btn-primary">Edit call</button></a>
         </div>
       </div>
+
     </div>
   </div>
 </div>
