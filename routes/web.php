@@ -10,5 +10,6 @@ Route::get('/login', 'SessionsController@create');
 Route::post('/login', 'SessionsController@store');
 Route::get('/logout', 'SessionsController@destroy');
 
+Route::get('/calls/active-calls', 'CallController@index');
 Route::get('/calls/create', 'CallController@create');
 Route::post('/calls', 'CallController@store');

@@ -85,6 +85,25 @@ body {
   margin-top: 0;
 }
 
+.panel-heading {
+  display: flex;
+  justify-content: space-between;
+}
+
+.date-created {
+  display: inline-flex;
+}
+
+.panel-bottom {
+  display: flex;
+  justify-content: space-between;
+  font-style: italic;
+}
+
+.btn {
+  font-style: normal;
+}
+
 
 /*
  * Placeholder dashboard ideas

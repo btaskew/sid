@@ -14,4 +14,13 @@ class Call extends Model
   {
     return $this->belongsTo(User::class);
   }
+
+  protected function renderLevel($level)
+  {
+    if($level === 1)
+    {
+      return "Urgent";
+    }
+    return "Normal";
+  }
 }

@@ -17,7 +17,7 @@ class User extends Authenticatable
 
     public function calls()
     {
-      return $this->hasMany(Role::class);
+      return $this->hasMany(Call::class);
     }
 
     public static function staff()
@@ -30,5 +30,11 @@ class User extends Authenticatable
     public function log(Call $call)
     {
       $this->calls()->save($call);
+    }
+
+    public static function renderStaff($staff)
+    {
+
+      return $staff->name.' - '.$staff->department;
     }
 }

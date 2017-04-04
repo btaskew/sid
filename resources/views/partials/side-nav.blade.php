@@ -2,7 +2,7 @@
   <ul class="nav nav-sidebar">
     @if(auth()->check())
     <li><a href="/calls/create">Create a call</a></li>
-    <li><a href="#">My active calls</a></li>
+    <li><a href="/calls/active-calls">My active calls</a></li>
     <li><a href="#">My closed calls</a></li>
     @endif
   </ul>
