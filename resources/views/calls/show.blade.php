@@ -11,30 +11,20 @@
           {{$call->description}}
         </p>
 
-        @if(array_key_exists($call->id, $actions))
-          @foreach($actions[$call->id] as $action)
-          <div class="request">
-            <div class="well">
-              <h4>{{$action->type}} </h4>
-              {{$action->content}}
-            </div>
-          </div>
-          @endforeach
-        @endif
-
-        <hr>
         <div class="panel-bottom">
-          <p id="assigned_to">
-            Assigned to: {{$call->assigned_to}}
-          </p>
-          <p id="priority">
-            Priority: {{$call->level}}
-          </p>
-          <a href="/calls/{{$call->id}}/edit"><button type="button" class="btn btn-primary">Edit call</button></a>
+          @if(array_key_exists($call->id, $actions))
+            <div class="request">
+                <h4 class="has-actions">{{count($actions[$call->id])}} Action/s</h4>
+            </div>
+            @else
+            <h4>Awaiting first response</h4>
+          @endif
+
+
+          <a href="/calls/{{$call->id}}/edit"><button type="button" class="btn btn-primary">View/Edit call</button></a>
         </div>
       </div>
 
     </div>
   </div>
 </div>
-<hr>

@@ -13,3 +13,5 @@ Route::get('/logout', 'SessionsController@destroy');
 Route::get('/calls/active-calls', 'CallController@index');
 Route::get('/calls/create', 'CallController@create');
 Route::post('/calls', 'CallController@store');
+Route::get('/calls/{call}/edit', 'CallController@edit');
+Route::post('/calls/{call}/edit', 'CallController@save');

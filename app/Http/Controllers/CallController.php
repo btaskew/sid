@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\CallRequest;
+use App\Http\Requests\ActionRequest;
 use App\User;
 use App\Call;
+use App\Action;
 
 class CallController extends Controller
 {
@@ -13,7 +15,7 @@ class CallController extends Controller
   public function index()
   {
     $calls = auth()->user()->calls()->get();
-    $calls = $this->render($calls);
+    $calls = $this->renderCalls($calls);
     $actions = $this->loadActions($calls);
     return view('calls.index', compact('calls', 'actions'));
   }
@@ -32,14 +34,34 @@ class CallController extends Controller
     return redirect()->home();
   }
 
-  protected function render($calls)
+  public function edit(Call $call)
+  {
+    $call = $this->render($call);
+    $actions = $call->actions()->get();
+    return view('calls.edit', compact('call', 'actions'));
+  }
+
+  public function save(Call $call, ActionRequest $request)
+  {
+    $call->saveAction(new Action(request(['type', 'content'])));
+    session()->flash('message', 'Your action has been recorded.');
+    return redirect()->back();
+  }
+
+  protected function renderCalls($calls)
   {
     foreach ($calls as $call)
     {
-      $call->level = Call::renderLevel($call->level);
-      $call->assigned_to = User::renderStaff(User::find($call->staff_id));
+      $call = $this->render($call);
     }
     return $calls;
+  }
+
+  protected function render($call)
+  {
+    $call->level = Call::renderLevel($call->level);
+    $call->assigned_to = User::renderStaff(User::find($call->staff_id));
+    return $call;
   }
 
   protected function loadActions($calls)

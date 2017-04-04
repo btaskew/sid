@@ -104,12 +104,16 @@ body {
   font-style: normal;
 }
 
-.request {
-  margin-top: 20px;
+.has-actions {
+  color: #b73347;
 }
 
-.response {
-  font-style: italic;
+.original-call {
+  background-color: #d2deef;
+}
+
+.well {
+  padding: 10px 20px;
 }
 
 /*

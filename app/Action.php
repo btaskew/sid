@@ -6,6 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Action extends Model
 {
+  protected $fillable = [
+        'type', 'content'
+    ];
+
   public function calls()
   {
     return $this->belongsTo(Call::class);

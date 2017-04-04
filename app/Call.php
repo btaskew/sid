@@ -20,6 +20,12 @@ class Call extends Model
     return $this->hasMany(Action::class);
   }
 
+  public function saveAction(Action $action)
+  {
+    $action->call_id = $this->id;
+    $this->actions()->save($action);
+  }
+
   protected function renderLevel($level)
   {
     if($level === 1)
