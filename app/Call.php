@@ -20,13 +20,7 @@ class Call extends Model
     return $this->hasMany(Action::class);
   }
 
-  public function saveAction(Action $action)
-  {
-    $action->call_id = $this->id;
-    $this->actions()->save($action);
-  }
-
-  protected function renderPriority($priority)
+  public function getPriorityAttribute($priority)
   {
     if($priority === 1)
     {
@@ -34,4 +28,18 @@ class Call extends Model
     }
     return "Normal";
   }
+
+  public function getAssignedAttribute($id)
+  {
+    $staff = User::find($this->staff_id);
+    return $staff->name.' - '.$staff->department;
+  }
+
+  public function saveAction(Action $action)
+  {
+    $action->call_id = $this->id;
+    $this->actions()->save($action);
+  }
+
+
 }

@@ -27,10 +27,10 @@
 
         <div class="panel-bottom">
           <p id="assigned_to">
-            Assigned to: {{$call->assigned_to}}
+            Assigned to: {{$call->assigned}}
           </p>
           <p id="priority">
-            Priority: {{$call->level}}
+            Priority: {{$call->priority}}
           </p>
         </div>
 

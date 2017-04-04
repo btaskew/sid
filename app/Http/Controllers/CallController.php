@@ -15,7 +15,6 @@ class CallController extends Controller
   public function index()
   {
     $calls = auth()->user()->calls()->get();
-    $calls = $this->renderCalls($calls);
     $actions = $this->loadActions($calls);
     return view('calls.index', compact('calls', 'actions'));
   }
@@ -36,7 +35,6 @@ class CallController extends Controller
 
   public function edit(Call $call)
   {
-    $call = $this->render($call);
     $actions = $call->actions()->get();
     return view('calls.edit', compact('call', 'actions'));
   }
@@ -46,22 +44,6 @@ class CallController extends Controller
     $call->saveAction(new Action(request(['type', 'content'])));
     session()->flash('message', 'Your action has been recorded.');
     return redirect()->back();
-  }
-
-  protected function renderCalls($calls)
-  {
-    foreach ($calls as $call)
-    {
-      $call = $this->render($call);
-    }
-    return $calls;
-  }
-
-  protected function render($call)
-  {
-    $call->priority = Call::renderPriority($call->priority);
-    $call->assigned_to = User::renderStaff(User::find($call->staff_id));
-    return $call;
   }
 
   protected function loadActions($calls)

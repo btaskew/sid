@@ -31,10 +31,4 @@ class User extends Authenticatable
     {
       $this->calls()->save($call);
     }
-
-    public static function renderStaff($staff)
-    {
-
-      return $staff->name.' - '.$staff->department;
-    }
 }
