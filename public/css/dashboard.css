@@ -104,6 +104,13 @@ body {
   font-style: normal;
 }
 
+.request {
+  margin-top: 20px;
+}
+
+.response {
+  font-style: italic;
+}
 
 /*
  * Placeholder dashboard ideas
