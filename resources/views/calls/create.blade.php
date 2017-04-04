@@ -19,8 +19,8 @@
       </div>
 
       <div class="form-group">
-        <label for="level">Level</label>
-        <select class="form-control" id="level" name="level" required>
+        <label for="priority">Priority</label>
+        <select class="form-control" id="priority" name="priority" required>
           <option value=0>
             Normal
           </option>

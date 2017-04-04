@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Call extends Model
 {
   protected $fillable = [
-        'title', 'description', 'level', 'staff_id'
+        'title', 'description', 'priority', 'staff_id'
     ];
 
   public function user()
@@ -26,9 +26,9 @@ class Call extends Model
     $this->actions()->save($action);
   }
 
-  protected function renderLevel($level)
+  protected function renderPriority($priority)
   {
-    if($level === 1)
+    if($priority === 1)
     {
       return "Urgent";
     }

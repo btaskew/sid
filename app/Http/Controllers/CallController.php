@@ -28,7 +28,7 @@ class CallController extends Controller
 
   public function store(CallRequest $request)
   {
-    auth()->user()->log(new Call(request(['title', 'description', 'level', 'staff_id'])));
+    auth()->user()->log(new Call(request(['title', 'description', 'priority', 'staff_id'])));
     session()->flash('message', 'Your call has been made. Please allow up to 1 week for a response.');
 
     return redirect()->home();
@@ -59,7 +59,7 @@ class CallController extends Controller
 
   protected function render($call)
   {
-    $call->level = Call::renderLevel($call->level);
+    $call->priority = Call::renderPriority($call->priority);
     $call->assigned_to = User::renderStaff(User::find($call->staff_id));
     return $call;
   }
