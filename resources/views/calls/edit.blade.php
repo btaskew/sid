@@ -17,7 +17,7 @@
 
           @foreach($actions as $action)
             <div class="request">
-              @if($action->user_id === auth()->user()->id)
+              @if($action->user_id === currentUser()->id)
                 <div class="well user-action">
                   <h4>{{$action->action_id}} </h4>
                   {{$action->content}}
@@ -44,18 +44,18 @@
         </div>
 
         <hr>
-        <form action="/calls/{{$call->id}}/edit" method="POST">
+        <form  method="POST" action="/calls/{{$call->id}}/edit">
           {{csrf_field()}}
           <div class="form-group">
             <label for="action_id">Action Type:</label>
             <select class="form-control" name="action_id" required>
               <option value="1">Update
-                @if(auth()->user()->role_id === 1)
-                <option value="0">Close
+                @if(currentUser()->role_id === 1)
                 <option value="2">Request for Information
                 @else
                 <option value="3">Answer Request
                 @endif
+                <option value="0">Close
               </select>
           </div>
 
@@ -68,6 +68,8 @@
           <div class="form-group">
             <button type="submit" class="btn btn-primary" name="submit">Submit</button>
           </div>
+
+          @include('partials.errors')
 
         </form>
 

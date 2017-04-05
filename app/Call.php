@@ -38,7 +38,7 @@ class Call extends Model
   public function saveAction(Action $action)
   {
     $action->call_id = $this->id;
-    $action->user_id = auth()->user()->id;
+    $action->user_id = currentUser()->id;
     $this->actions()->save($action);
   }
 

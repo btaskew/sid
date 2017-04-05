@@ -12,9 +12,16 @@ use App\Action;
 class CallController extends Controller
 {
 
-  public function index()
+  public function activeCalls()
   {
-    $calls = auth()->user()->activeCalls();
+    $calls = currentUser()->activeCalls();
+    $actions = $this->loadActions($calls);
+    return view('calls.index', compact('calls', 'actions'));
+  }
+
+  public function closedCalls()
+  {
+    $calls = currentUser()->closedCalls();
     $actions = $this->loadActions($calls);
     return view('calls.index', compact('calls', 'actions'));
   }
@@ -27,8 +34,8 @@ class CallController extends Controller
 
   public function store(CallRequest $request)
   {
-    auth()->user()->log(new Call(request(['title', 'description', 'priority', 'staff_id'])));
-    session()->flash('message', 'Your call has been made. Please allow up to 1 week for a response.');
+    currentUser()->log(new Call(request(['title', 'description', 'priority', 'staff_id'])));
+    flash('Your call has been made. Please allow up to 1 week for a response.');
 
     return redirect()->home();
   }
@@ -41,8 +48,8 @@ class CallController extends Controller
 
   public function save(Call $call, ActionRequest $request)
   {
-    $call->saveAction(new Action(request(['type', 'content'])));
-    session()->flash('message', 'Your action has been recorded.');
+    $call->saveAction(new Action(request(['action_id', 'content'])));
+    flash('Your action has been recorded.');
     return redirect()->back();
   }
 

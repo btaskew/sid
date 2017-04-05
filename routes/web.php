@@ -10,7 +10,8 @@ Route::get('/login', 'SessionsController@create');
 Route::post('/login', 'SessionsController@store');
 Route::get('/logout', 'SessionsController@destroy');
 
-Route::get('/calls/active-calls', 'CallController@index');
+Route::get('/calls/active-calls', 'CallController@activeCalls');
+Route::get('/calls/closed-calls', 'CallController@closedCalls');
 Route::get('/calls/create', 'CallController@create');
 Route::post('/calls', 'CallController@store');
 Route::get('/calls/{call}/edit', 'CallController@edit');

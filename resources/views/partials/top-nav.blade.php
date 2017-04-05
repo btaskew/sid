@@ -6,7 +6,7 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-right">
         @if (Auth::check())
-          <li><a class="nav-link ml-auto" href="#">{{ucfirst(auth()->user()->name)}}</a></li>
+          <li><a class="nav-link ml-auto" href="#">{{ucfirst(currentUser()->name)}}</a></li>
           <li><a class="nav-link" href="/logout">Logout</a></li>
         @else
           <li><a class="nav-link ml-auto" href="/login">Login</a></li>

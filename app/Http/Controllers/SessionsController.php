@@ -21,10 +21,10 @@ class SessionsController extends Controller
     if(auth()->check())
     {
       auth()->logout();
-      session()->flash('message', 'Successfully logged out');
+      flash('Successfully logged out');
       return redirect()->home();
     }
-    session()->flash('message', 'You are not logged in');
+    flash('You are not logged in');
     return redirect()->home();
   }
 
@@ -36,7 +36,7 @@ class SessionsController extends Controller
         'message' => 'Please check you details and try again.'
       ]);
     }
-    session()->flash('message', 'Welcome back!');
+    flash('Welcome back!');
     return redirect()->home();
   }
 
