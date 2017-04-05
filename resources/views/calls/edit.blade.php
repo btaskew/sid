@@ -21,11 +21,13 @@
                 <div class="well user-action">
                   <h4>{{$action->action_id}} </h4>
                   {{$action->content}}
+                  <div style="font-style: italic; text-align: right">Actioned by: {{$action->actionedBy($action)}}</div>
                 </div>
               @else
               <div class="well">
                 <h4>{{$action->action_id}} </h4>
                 {{$action->content}}
+                <div style="font-style: italic; text-align: right">Actioned by: {{$action->actionedBy($action)}}</div>
               </div>
               @endif
             </div>

@@ -29,4 +29,14 @@ class Action extends Model
   {
     return $this->belongsTo(Call::class);
   }
+
+  public function actionedBy(Action $action)
+  {
+    $user = User::where('id', '=', "{$action->user_id}")->first();
+    if($user->department)
+    {
+      return $user->name.' ('.$user->department.')';
+    }
+    return $user->name;
+  }
 }

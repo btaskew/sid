@@ -20,6 +20,16 @@ class User extends Authenticatable
       return $this->hasMany(Call::class);
     }
 
+    public function activeCalls()
+    {
+      return $this->calls()->where('status', '=', 0)->get();
+    }
+
+    public function closedCalls()
+    {
+      return $this->calls()->where('status', '=', 1)->get();
+    }
+
     public static function staff()
     {
       return User::where('role_id', 1)

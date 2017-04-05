@@ -14,7 +14,7 @@ class CallController extends Controller
 
   public function index()
   {
-    $calls = auth()->user()->calls()->get();
+    $calls = auth()->user()->activeCalls();
     $actions = $this->loadActions($calls);
     return view('calls.index', compact('calls', 'actions'));
   }
