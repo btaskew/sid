@@ -11,7 +11,7 @@ class Action extends Model
     ];
 
   protected $actions = [
-    0 => "Closed",
+    0 => "Close Call",
     1 => "Update",
     2 => "Request for Information",
     3 => "Request Response"

@@ -37,9 +37,25 @@ class Call extends Model
 
   public function saveAction(Action $action)
   {
+    $this->assignIds($action);
+    if($action->action_id === "Close Call")
+    {
+      $this->closeCall();
+    }
+    $this->actions()->save($action);
+  }
+
+  protected function assignIds(Action $action)
+  {
     $action->call_id = $this->id;
     $action->user_id = currentUser()->id;
-    $this->actions()->save($action);
+    return $action;
+  }
+
+  protected function closeCall()
+  {
+    $this->status = 1;
+    $this->save();
   }
 
 
