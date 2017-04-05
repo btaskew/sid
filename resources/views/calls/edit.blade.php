@@ -16,12 +16,19 @@
 
 
           @foreach($actions as $action)
-          <div class="request">
-            <div class="well">
-              <h4>{{$action->type}} </h4>
-              {{$action->content}}
+            <div class="request">
+              @if($action->user_id === auth()->user()->id)
+                <div class="well user-action">
+                  <h4>{{$action->action_id}} </h4>
+                  {{$action->content}}
+                </div>
+              @else
+              <div class="well">
+                <h4>{{$action->action_id}} </h4>
+                {{$action->content}}
+              </div>
+              @endif
             </div>
-          </div>
           @endforeach
 
 
@@ -38,8 +45,16 @@
         <form action="/calls/{{$call->id}}/edit" method="POST">
           {{csrf_field()}}
           <div class="form-group">
-            <label for="type">Action Type:</label>
-            <input type="text" class="form-control" id="type" name="type" required>
+            <label for="action_id">Action Type:</label>
+            <select class="form-control" name="action_id" required>
+              <option value="1">Update
+                @if(auth()->user()->role_id === 1)
+                <option value="0">Close
+                <option value="2">Request for Information
+                @else
+                <option value="3">Answer Request
+                @endif
+              </select>
           </div>
 
           <div class="form-group">

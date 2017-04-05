@@ -109,7 +109,11 @@ body {
 }
 
 .original-call {
-  background-color: #d2deef;
+  background-color: #c7d6ed;
+}
+
+.user-action {
+  background-color: #cae4f2;
 }
 
 .well {
