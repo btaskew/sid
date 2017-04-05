@@ -44,7 +44,7 @@
         </div>
 
         <hr>
-        <form  method="POST" action="/calls/{{$call->id}}/edit">
+        <form action="/calls/{{$call->id}}/edit" method="POST">
           {{csrf_field()}}
           <div class="form-group">
             <label for="action_id">Action Type:</label>
@@ -68,8 +68,6 @@
           <div class="form-group">
             <button type="submit" class="btn btn-primary" name="submit">Submit</button>
           </div>
-
-          @include('partials.errors')
 
         </form>
 
