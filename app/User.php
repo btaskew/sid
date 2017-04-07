@@ -46,4 +46,13 @@ class User extends Authenticatable
     {
       $this->calls()->save($call);
     }
+
+    public function formatName()
+    {
+      if($this->department)
+      {
+        return $this->name.' ('.$this->department.')';
+      }
+      return $this->name;
+    }
 }

@@ -124,6 +124,10 @@ body {
   padding: 10px 20px;
 }
 
+.urgent {
+  color: #b73347;
+}
+
 /*
  * Placeholder dashboard ideas
  */

@@ -34,10 +34,6 @@ class Action extends Model
   public function actionedBy(Action $action)
   {
     $user = User::where('id', '=', "{$action->user_id}")->first();
-    if($user->department)
-    {
-      return $user->name.' ('.$user->department.')';
-    }
-    return $user->name;
+    return $user->formatName($user);
   }
 }

@@ -11,7 +11,8 @@
       <div class="panel-body">
         <div class="well original-call">
             <h4>Original call</h4>
-            {{$call->description}}
+            {{$call->description}}<br>
+            <div style="font-style: italic; text-align: right">Call by: {{$call->caller()}}</div>
         </div>
 
 

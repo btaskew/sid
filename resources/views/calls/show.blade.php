@@ -3,6 +3,9 @@
     <div class="panel panel-primary">
       <div class="panel-heading">
         <h3 class="panel-title">{{$call->title}}</h3>
+        @if($call->priority === "Urgent")
+          <h3 class="panel-title">URGENT</h3>
+        @endif
         <h4 class="panel-title date-created">Call Made: {{$call->created_at->format('j M Y, g:i a')}}</h4>
       </div>
 

@@ -32,13 +32,13 @@ class Call extends Model
   public function getAssignedAttribute($id)
   {
     $staff = User::find($this->staff_id);
-    return $staff->name.' - '.$staff->department;
+    return $staff->formatName($staff);
   }
 
   public function saveAction(Action $action)
   {
     $this->assignIds($action);
-    $this->statusActions($action);
+    $this->updateStatus($action);
     $this->actions()->save($action);
   }
 
@@ -49,7 +49,7 @@ class Call extends Model
     return $action;
   }
 
-  protected function statusActions(Action $action)
+  protected function updateStatus(Action $action)
   {
     if($action->action_id === "Close Call")
     {
@@ -61,6 +61,11 @@ class Call extends Model
     }
     $this->save();
     return;
+  }
+
+  public function caller()
+  {
+    return User::find($this->id)->name;
   }
 
 
