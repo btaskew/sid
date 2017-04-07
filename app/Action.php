@@ -36,4 +36,17 @@ class Action extends Model
     $user = User::where('id', '=', "{$action->user_id}")->first();
     return $user->formatName($user);
   }
+
+  public function caller()
+  {
+    $call = Call::find($this->call_id);
+    return $call->caller();
+  }
+
+  public function assignIds($call_id)
+  {
+    $this->call_id = $call_id;
+    $this->user_id = currentUser()->id;
+    return $this;
+  }
 }

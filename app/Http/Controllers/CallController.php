@@ -52,7 +52,7 @@ class CallController extends Controller
 
   public function edit(Call $call)
   {
-    $actions = $call->actions()->get();
+    $actions = $call->actions()->orderBy('created_at')->get();
     return view('calls.edit', compact('call', 'actions'));
   }
 

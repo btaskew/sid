@@ -37,35 +37,32 @@ class Call extends Model
 
   public function saveAction(Action $action)
   {
-    $this->assignIds($action);
-    $this->updateStatus($action);
+    $action->assignIds($this->id);
+    $message_id = $this->updateStatus($action->action_id);
     $this->actions()->save($action);
+    $this->caller()->sendNotification($message_id, $this->user_id);
   }
 
-  protected function assignIds(Action $action)
+  protected function updateStatus($action_id)
   {
-    $action->call_id = $this->id;
-    $action->user_id = currentUser()->id;
-    return $action;
-  }
-
-  protected function updateStatus(Action $action)
-  {
-    if($action->action_id === "Close Call")
+    $message_id = 2;
+    if($action_id === "Close Call")
     {
       $this->status = 1;
+      $message_id = 3;
     }
-    else if($action->action_id === "Re-Open Call")
+    else if($action_id === "Re-Open Call")
     {
       $this->status = 0;
+      $message_id = 4;
     }
     $this->save();
-    return;
+    return $message_id;
   }
 
   public function caller()
   {
-    return User::find($this->id)->name;
+    return User::find($this->user_id);
   }
 
 

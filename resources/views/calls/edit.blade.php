@@ -12,7 +12,7 @@
         <div class="well original-call">
             <h4>Original call</h4>
             {{$call->description}}<br>
-            <div style="font-style: italic; text-align: right">Call by: {{$call->caller()}}</div>
+            <div style="font-style: italic; text-align: right">Call by: {{$call->caller()->name}}</div>
         </div>
 
 
@@ -29,7 +29,9 @@
 
                   <h4>{{$action->action_id}} </h4>
                   {{$action->content}}
-                  <div style="font-style: italic; text-align: right">Actioned by: {{$action->actionedBy($action)}}</div>
+                  <div style="font-style: italic; text-align: right">
+                    Actioned by: {{$action->actionedBy($action)}} - {{$action->created_at->format('j M Y, g:i a')}}
+                  </div>
               </div>
             </div>
           @endforeach

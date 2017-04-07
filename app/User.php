@@ -45,6 +45,7 @@ class User extends Authenticatable
     public function log(Call $call)
     {
       $this->calls()->save($call);
+      $this->sendNotification(1, $call->staff_id);
     }
 
     public function formatName()
@@ -54,5 +55,11 @@ class User extends Authenticatable
         return $this->name.' ('.$this->department.')';
       }
       return $this->name;
+    }
+
+    public function sendNotification($message_id, $user_id)
+    {
+      $notification = new Notification();
+      $notification->store($message_id, $user_id);
     }
 }
