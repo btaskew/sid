@@ -30,6 +30,11 @@ class User extends Authenticatable
       return $this->calls()->where('status', '=', 1)->get();
     }
 
+    public function assignedCalls()
+    {
+      return Call::where('staff_id', '=', $this->id)->get();
+    }
+
     public static function staff()
     {
       return User::where('role_id', 1)

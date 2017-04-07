@@ -14,7 +14,8 @@ class Action extends Model
     0 => "Close Call",
     1 => "Update",
     2 => "Request for Information",
-    3 => "Request Response"
+    3 => "Request Response",
+    4 => "Re-Open Call"
   ];
 
   public function getActionIdAttribute($action_id)

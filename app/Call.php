@@ -38,10 +38,7 @@ class Call extends Model
   public function saveAction(Action $action)
   {
     $this->assignIds($action);
-    if($action->action_id === "Close Call")
-    {
-      $this->closeCall();
-    }
+    $this->statusActions($action);
     $this->actions()->save($action);
   }
 
@@ -52,10 +49,18 @@ class Call extends Model
     return $action;
   }
 
-  protected function closeCall()
+  protected function statusActions(Action $action)
   {
-    $this->status = 1;
+    if($action->action_id === "Close Call")
+    {
+      $this->status = 1;
+    }
+    else if($action->action_id === "Re-Open Call")
+    {
+      $this->status = 0;
+    }
     $this->save();
+    return;
   }
 
 

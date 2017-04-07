@@ -116,6 +116,10 @@ body {
   background-color: #cae4f2;
 }
 
+.closed-action {
+  background-color: #f97070;
+}
+
 .well {
   padding: 10px 20px;
 }

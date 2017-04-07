@@ -17,19 +17,19 @@
 
           @foreach($actions as $action)
             <div class="request">
-              @if($action->user_id === currentUser()->id)
+
+              @if($action->action_id === "Close Call")
+                <div class="well closed-action">
+              @elseif($action->user_id === currentUser()->id)
                 <div class="well user-action">
+              @else
+                <div class="well">
+              @endif
+
                   <h4>{{$action->action_id}} </h4>
                   {{$action->content}}
                   <div style="font-style: italic; text-align: right">Actioned by: {{$action->actionedBy($action)}}</div>
-                </div>
-              @else
-              <div class="well">
-                <h4>{{$action->action_id}} </h4>
-                {{$action->content}}
-                <div style="font-style: italic; text-align: right">Actioned by: {{$action->actionedBy($action)}}</div>
               </div>
-              @endif
             </div>
           @endforeach
 
@@ -50,12 +50,16 @@
             <label for="action_id">Action Type:</label>
             <select class="form-control" name="action_id" required>
               <option value="1">Update
-                @if(currentUser()->role_id === 1)
-                <option value="2">Request for Information
-                @else
-                <option value="3">Answer Request
-                @endif
-                <option value="0">Close
+              @if(currentUser()->role_id === 1)
+              <option value="2">Request for Information
+              @else
+              <option value="3">Answer Request
+              @endif
+              @if($call->status === 1)
+              <option value="4">Re-open
+              @else
+              <option value="0">Close
+              @endif
               </select>
           </div>
 

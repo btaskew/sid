@@ -15,15 +15,25 @@ class CallController extends Controller
   public function activeCalls()
   {
     $calls = currentUser()->activeCalls();
-    $actions = $this->loadActions($calls);
-    return view('calls.index', compact('calls', 'actions'));
+    return $this->show($calls, 'active');
   }
 
   public function closedCalls()
   {
     $calls = currentUser()->closedCalls();
+    return $this->show($calls, 'closed');
+  }
+
+  public function assignedCalls()
+  {
+    $calls = currentUser()->assignedCalls();
+    return $this->show($calls, 'assigned');
+  }
+
+  protected function show($calls, $category)
+  {
     $actions = $this->loadActions($calls);
-    return view('calls.index', compact('calls', 'actions'));
+    return view("calls.calls", compact('calls', 'actions', 'category'));
   }
 
   public function create()
