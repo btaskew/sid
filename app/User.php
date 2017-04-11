@@ -20,6 +20,11 @@ class User extends Authenticatable
       return $this->hasMany(Call::class);
     }
 
+    public function notifications()
+    {
+      return $this->hasMany(Notification::class);
+    }
+
     public function activeCalls()
     {
       return $this->calls()->where('status', '=', 0)->get();

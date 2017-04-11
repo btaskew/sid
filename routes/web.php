@@ -2,6 +2,7 @@
 <?php
 
 Route::get('/', 'HomeController@index')->name('home');
+Route::post('/{notification}/delete', 'HomeController@delete');
 
 Route::get('/register', 'RegistrationController@create');
 Route::post('/register', 'RegistrationController@store');
