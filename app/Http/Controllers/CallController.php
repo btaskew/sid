@@ -44,7 +44,7 @@ class CallController extends Controller
 
   public function store(CallRequest $request)
   {
-    currentUser()->log(new Call(request(['title', 'description', 'priority', 'staff_id'])));
+    currentUser()->log(new Call(request(['title', 'description', 'priority', 'assigned_id'])));
     flash('Your call has been made. Please allow up to 1 week for a response.');
 
     return redirect()->home();
@@ -58,7 +58,7 @@ class CallController extends Controller
 
   public function save(Call $call, ActionRequest $request)
   {
-    $call->saveAction(new Action(request(['action_id', 'content'])));
+    $call->saveAction(new Action(request(['action_type', 'content'])));
     flash('Your action has been recorded.');
     return redirect()->back();
   }

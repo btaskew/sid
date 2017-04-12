@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Call extends Model
 {
   protected $fillable = [
-        'title', 'description', 'priority', 'staff_id'
+        'title', 'description', 'priority', 'assigned_id'
     ];
 
   public function user()
@@ -31,27 +31,27 @@ class Call extends Model
 
   public function getAssignedAttribute($id)
   {
-    $staff = User::find($this->staff_id);
+    $staff = User::find($this->assigned_id);
     return $staff->formatName($staff);
   }
 
   public function saveAction(Action $action)
   {
     $action->assignIds($this->id);
-    $message_id = $this->updateStatus($action->action_id);
+    $message_id = $this->updateStatus($action->action_type);
     $this->actions()->save($action);
-    $this->caller()->sendNotification($message_id, $this->user_id);
+    Notification::send($this, $message_id);
   }
 
-  protected function updateStatus($action_id)
+  protected function updateStatus($action_type)
   {
     $message_id = 2;
-    if($action_id === "Close Call")
+    if($action_type === "Close Call")
     {
       $this->status = 1;
       $message_id = 3;
     }
-    else if($action_id === "Re-Open Call")
+    else if($action_type === "Re-Open Call")
     {
       $this->status = 0;
       $message_id = 4;
@@ -63,6 +63,11 @@ class Call extends Model
   public function caller()
   {
     return User::find($this->user_id);
+  }
+
+  public function assignedTo()
+  {
+    return User::find($this->assigned_id);
   }
 
 

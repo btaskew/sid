@@ -37,7 +37,7 @@ class User extends Authenticatable
 
     public function assignedCalls()
     {
-      return Call::where('staff_id', '=', $this->id)->get();
+      return Call::where('assigned_id', '=', $this->id)->get();
     }
 
     public static function staff()
@@ -50,7 +50,7 @@ class User extends Authenticatable
     public function log(Call $call)
     {
       $this->calls()->save($call);
-      $this->sendNotification(1, $call->staff_id);
+      $this->sendNotification(1, $call->assigned_id);
     }
 
     public function formatName()
@@ -62,9 +62,13 @@ class User extends Authenticatable
       return $this->name;
     }
 
-    public function sendNotification($message_id, $user_id)
+    public function sendNotification($message_id, $id = null)
     {
+      if(!$id)
+      {
+        $id = $this->id;
+      }
       $notification = new Notification();
-      $notification->store($message_id, $user_id);
+      $notification->store($message_id, $id);
     }
 }

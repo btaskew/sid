@@ -31,8 +31,8 @@
       </div>
 
       <div class="form-group">
-        <label for="staff_id">Assign To</label>
-        <select class="form-control" id="staff_id" name="staff_id" required>
+        <label for="assigned_id">Assign To</label>
+        <select class="form-control" id="assigned_id" name="assigned_id" required>
           @foreach($staff as $person)
             <option value="{{$person->id}}">
               {{$person->name}} - {{$person->department}}

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Action extends Model
 {
   protected $fillable = [
-        'type', 'content', 'action_id'
+        'type', 'content', 'action_type'
     ];
 
   protected $actions = [
@@ -18,11 +18,11 @@ class Action extends Model
     4 => "Re-Open Call"
   ];
 
-  public function getActionIdAttribute($action_id)
+  public function getActionTypeAttribute($action_type)
   {
-    if(array_key_exists($action_id, $this->actions))
+    if(array_key_exists($action_type, $this->actions))
     {
-      return $this->actions[$action_id];
+      return $this->actions[$action_type];
     }
   }
 

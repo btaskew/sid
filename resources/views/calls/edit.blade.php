@@ -19,7 +19,7 @@
           @foreach($actions as $action)
             <div class="request">
 
-              @if($action->action_id === "Close Call")
+              @if($action->action_type === "Close Call")
                 <div class="well closed-action">
               @elseif($action->user_id === currentUser()->id)
                 <div class="well user-action">
@@ -27,7 +27,7 @@
                 <div class="well">
               @endif
 
-                  <h4>{{$action->action_id}} </h4>
+                  <h4>{{$action->action_type}} </h4>
                   {{$action->content}}
                   <div style="font-style: italic; text-align: right">
                     Actioned by: {{$action->actionedBy($action)}} - {{$action->created_at->format('j M Y, g:i a')}}
@@ -50,18 +50,18 @@
         <form action="/calls/{{$call->id}}/edit" method="POST">
           {{csrf_field()}}
           <div class="form-group">
-            <label for="action_id">Action Type:</label>
-            <select class="form-control" name="action_id" required>
-              <option value="1">Update
-              @if(currentUser()->role_id === 1)
-              <option value="2">Request for Information
-              @else
-              <option value="3">Answer Request
-              @endif
+            <label for="action_type">Action Type:</label>
+            <select class="form-control" name="action_type" required>
               @if($call->status === 1)
-              <option value="4">Re-open
+                <option value="4">Re-open
               @else
-              <option value="0">Close
+                <option value="1">Update
+                @if(currentUser()->role_id === 1)
+                <option value="2">Request for Information
+                @else
+                <option value="3">Answer Request
+                @endif
+                <option value="0">Close
               @endif
               </select>
           </div>

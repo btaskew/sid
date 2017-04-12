@@ -21,7 +21,7 @@ class CreateCallsTable extends Migration
           $table->text('response');
           $table->integer('status');
           $table->integer('level');
-          $table->integer('staff_id');
+          $table->integer('assigned_id');
       });
     }
 
