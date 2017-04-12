@@ -5,7 +5,7 @@
 <div id="root">
   <h1>Notifications</h1>
   <hr>
-  @foreach ($messages as $notificationId => $message)
+  @foreach ($notifications as $id => $message)
 
   <notification>
 
@@ -14,7 +14,7 @@
     </div>
 
     <div slot="delete">
-      <form action="/{{$notificationId}}/delete" method="POST">
+      <form action="/{{$id}}/delete" method="POST">
         {{csrf_field()}}
         <input type="submit" class="delete-notification" value="x"></input>
       </form>

@@ -25,6 +25,7 @@ class Action extends Model
     {
       return $this->actions[$action_type];
     }
+    throw new \Exception("Action does not exist");
   }
 
   public function calls()
@@ -35,12 +36,20 @@ class Action extends Model
   public function actionedBy()
   {
     $user = User::where('id', '=', "{$this->user_id}")->first();
-    return $user->formatName($user);
+    if(!$user)
+    {
+      throw new \Exception("User not found");
+    }
+    return $user->formatName();
   }
 
   public function caller()
   {
     $call = Call::find($this->call_id);
+    if(!$call)
+    {
+      throw new \Exception("Call not found");
+    }
     return $call->caller();
   }
 

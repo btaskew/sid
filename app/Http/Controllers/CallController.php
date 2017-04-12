@@ -46,8 +46,7 @@ class CallController extends Controller
   {
     currentUser()->log(new Call(request(['title', 'description', 'priority', 'assigned_id'])));
     flash('Your call has been made. Please allow up to 1 week for a response.');
-
-    return redirect()->home();
+    return redirect()->route('calls');
   }
 
   public function edit(Call $call)
@@ -65,6 +64,10 @@ class CallController extends Controller
 
   protected function loadActions($calls)
   {
+    if(!$calls)
+    {
+      throw new \Exception("No calls found.", 1);
+    }
     $actions=[];
     foreach($calls as $call)
     {

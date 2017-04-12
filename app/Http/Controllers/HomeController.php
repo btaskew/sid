@@ -12,15 +12,8 @@ class HomeController extends Controller
     {
       if(auth()->check())
       {
-        $messages = [];
-        $notifications = currentUser()->notifications()->get();
-
-        foreach ($notifications as $notification)
-        {
-          $message = Message::find($notification->message_id);
-          $messages[$notification->id] = $message;
-        }
-        return view('home', compact('messages'));
+        $notifications = currentUser()->getNotifications();
+        return view('home', compact('notifications'));
       }
       return view('sessions.create');
     }

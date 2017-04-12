@@ -24,7 +24,6 @@ class RegistrationController extends Controller
       'department' => request('department')
     ]);
 
-
     auth()->login($user);
 
     flash('Thanks so much for signing up!');

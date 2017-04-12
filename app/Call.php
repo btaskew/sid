@@ -32,7 +32,11 @@ class Call extends Model
   public function getAssignedAttribute($id)
   {
     $staff = User::find($this->assigned_id);
-    return $staff->formatName($staff);
+    if(!$staff)
+    {
+      throw new \Exception("User not found");
+    }
+    return $staff->formatName();
   }
 
   public function saveAction(Action $action)
@@ -45,11 +49,11 @@ class Call extends Model
 
   protected function updateStatus($action_type)
   {
-    if($action_type === "Close Call")
+    if($action_type == "Close Call")
     {
       $this->status = 1;
     }
-    else if($action_type === "Re-open Call")
+    else if($action_type == "Re-open Call")
     {
       $this->status = 0;
     }

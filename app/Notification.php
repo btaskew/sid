@@ -81,7 +81,7 @@ class Notification extends Model
         $parameters["message"] = 8;
         break;
       default:
-        throw new Exception("Action type invalid", 1);
+        throw new \Exception("Action type invalid", 1);
       break;
     }
 

@@ -22,10 +22,10 @@ class SessionsController extends Controller
     {
       auth()->logout();
       flash('Successfully logged out');
-      return redirect()->home();
+      return redirect()->route('login');
     }
     flash('You are not logged in');
-    return redirect()->home();
+    return redirect()->route('login');
   }
 
   public function store()

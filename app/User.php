@@ -71,4 +71,16 @@ class User extends Authenticatable
       $notification = new Notification();
       $notification->store($message_id, $recipient_id);
     }
+
+    public function getNotifications()
+    {
+      $collection = [];
+      $notifications = $this->notifications()->get();
+      foreach ($notifications as $notification)
+      {
+        $message = Message::find($notification->message_id);
+        $collection[$notification->id] = $message;
+      }
+      return $collection;
+    }
 }
