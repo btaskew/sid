@@ -1,3 +1,8 @@
+//Redundant
+
+//To use instead of vue add "include('calls.show')"
+
+
 <div class="row ">
   <div class="col-md-8">
     <div class="panel panel-primary">
