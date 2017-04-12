@@ -104,6 +104,10 @@ body {
   font-style: normal;
 }
 
+.btn-notify-view {
+  float: right;
+}
+
 .has-actions {
   color: #b73347;
 }

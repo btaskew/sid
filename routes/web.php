@@ -14,6 +14,8 @@ Route::get('/logout', 'SessionsController@destroy');
 Route::get('/calls/active-calls', 'CallController@activeCalls')->name('calls');
 Route::get('/calls/closed-calls', 'CallController@closedCalls');
 Route::get('/calls/assigned-calls', 'CallController@assignedCalls');
+Route::get('/calls/closed-assigned-calls', 'CallController@closedAssignedCalls');
+
 Route::get('/calls/create', 'CallController@create');
 Route::post('/calls', 'CallController@store');
 Route::get('/calls/{call}/edit', 'CallController@edit');

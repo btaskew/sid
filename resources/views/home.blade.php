@@ -10,17 +10,18 @@
   <notification>
 
     <div slot="header">
-      {{$message->title}}
+      {{$message['title']}}
     </div>
 
-    <div slot="delete">
-      <form action="/{{$id}}/delete" method="POST">
-        {{csrf_field()}}
-        <input type="submit" class="delete-notification" value="x"></input>
-      </form>
-    </div>
+    <form slot="delete" action="/{{$id}}/delete" method="post">
+      {{csrf_field()}}
+      <input type="submit" class="delete-notification" name="delete-notification" value="x">
 
-    {{$message->message}}
+    </form>
+
+    {{$message['message']}}
+
+    <a href="/calls/{{$message['call_id']}}/edit"><button type="button" class="btn btn-primary btn-notify-view">View call</button></a>
 
   </notification>
 

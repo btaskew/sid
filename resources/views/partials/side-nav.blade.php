@@ -8,6 +8,7 @@
   <ul class="nav nav-sidebar">
   @if(currentUser()->role_id === 1)
     <li><a href="/calls/assigned-calls">My assigned calls</a></li>
+    <li><a href="/calls/closed-assigned-calls">My closed assigned calls</a></li>
     @endif
   </ul>
   @endif

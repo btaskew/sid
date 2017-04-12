@@ -37,7 +37,18 @@ class User extends Authenticatable
 
     public function assignedCalls()
     {
-      return Call::where('assigned_id', '=', $this->id)->get();
+      return Call::where([
+        ['assigned_id', '=', $this->id],
+        ['status', '=', 0],
+        ])->get();
+    }
+
+    public function closedAssignedCalls()
+    {
+      return Call::where([
+        ['assigned_id', '=', $this->id],
+        ['status', '=', 1],
+        ])->get();
     }
 
     public static function staff()
@@ -50,7 +61,7 @@ class User extends Authenticatable
     public function log(Call $call)
     {
       $this->calls()->save($call);
-      $this->sendNotification(0, $call->assigned_id);
+      $this->sendNotification(0, $call->id, $call->assigned_id);
     }
 
     public function formatName()
@@ -62,14 +73,14 @@ class User extends Authenticatable
       return $this->name;
     }
 
-    public function sendNotification($message_id, $recipient_id = null)
+    public function sendNotification($message_id, $call_id, $recipient_id = null)
     {
       if(!$recipient_id)
       {
         $recipient_id = $this->id;
       }
       $notification = new Notification();
-      $notification->store($message_id, $recipient_id);
+      $notification->store($message_id, $call_id, $recipient_id);
     }
 
     public function getNotifications()
@@ -79,7 +90,11 @@ class User extends Authenticatable
       foreach ($notifications as $notification)
       {
         $message = Message::find($notification->message_id);
-        $collection[$notification->id] = $message;
+        $collection[$notification->id] = array(
+          'call_id' => $notification->call_id,
+          'title' => $message->title,
+          'message' => $message->message
+        );
       }
       return $collection;
     }

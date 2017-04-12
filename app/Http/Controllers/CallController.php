@@ -30,6 +30,12 @@ class CallController extends Controller
     return $this->show($calls, 'assigned');
   }
 
+  public function closedAssignedCalls()
+  {
+    $calls = currentUser()->closedAssignedCalls();
+    return $this->show($calls, 'closed assigned');
+  }
+
   protected function show($calls, $category)
   {
     $actions = $this->loadActions($calls);

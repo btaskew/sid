@@ -22,12 +22,13 @@ class Notification extends Model
     $parameters = $notification->setParameters($call, $action);
 
     $user = User::find($parameters["recipient"]);
-    $user->sendNotification($parameters["message"]);
+    $user->sendNotification($parameters["message"], $call->id);
   }
 
-  public function store($message_id, $user_id)
+  public function store($message_id, $call_id, $user_id)
   {
     $this->message_id = $message_id;
+    $this->call_id = $call_id;
     $this->user_id = $user_id;
     $this->save();
   }
