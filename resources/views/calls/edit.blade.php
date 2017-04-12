@@ -30,7 +30,7 @@
                   <h4>{{$action->action_type}} </h4>
                   {{$action->content}}
                   <div style="font-style: italic; text-align: right">
-                    Actioned by: {{$action->actionedBy($action)}} - {{$action->created_at->format('j M Y, g:i a')}}
+                    Actioned by: {{$action->actionedBy($action->user_id)}} - {{$action->created_at->format('j M Y, g:i a')}}
                   </div>
               </div>
             </div>
@@ -53,7 +53,7 @@
             <label for="action_type">Action Type:</label>
             <select class="form-control" name="action_type" required>
               @if($call->status === 1)
-                <option value="4">Re-open
+                <option value="5">Re-open
               @else
                 <option value="1">Update
                 @if(currentUser()->role_id === 1)
@@ -61,7 +61,7 @@
                 @else
                 <option value="3">Answer Request
                 @endif
-                <option value="0">Close
+                <option value="4">Close
               @endif
               </select>
           </div>

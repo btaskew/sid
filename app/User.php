@@ -50,7 +50,7 @@ class User extends Authenticatable
     public function log(Call $call)
     {
       $this->calls()->save($call);
-      $this->sendNotification(1, $call->assigned_id);
+      $this->sendNotification(0, $call->assigned_id);
     }
 
     public function formatName()
@@ -62,13 +62,13 @@ class User extends Authenticatable
       return $this->name;
     }
 
-    public function sendNotification($message_id, $id = null)
+    public function sendNotification($message_id, $recipient_id = null)
     {
-      if(!$id)
+      if(!$recipient_id)
       {
-        $id = $this->id;
+        $recipient_id = $this->id;
       }
       $notification = new Notification();
-      $notification->store($message_id, $id);
+      $notification->store($message_id, $recipient_id);
     }
 }

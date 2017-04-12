@@ -11,11 +11,12 @@ class Action extends Model
     ];
 
   protected $actions = [
-    0 => "Close Call",
+    0 => "New Call",
     1 => "Update",
     2 => "Request for Information",
     3 => "Request Response",
-    4 => "Re-Open Call"
+    4 => "Close Call",
+    5 => "Re-open Call"
   ];
 
   public function getActionTypeAttribute($action_type)
@@ -31,9 +32,9 @@ class Action extends Model
     return $this->belongsTo(Call::class);
   }
 
-  public function actionedBy(Action $action)
+  public function actionedBy()
   {
-    $user = User::where('id', '=', "{$action->user_id}")->first();
+    $user = User::where('id', '=', "{$this->user_id}")->first();
     return $user->formatName($user);
   }
 
@@ -48,5 +49,14 @@ class Action extends Model
     $this->call_id = $call_id;
     $this->user_id = currentUser()->id;
     return $this;
+  }
+
+  public function isActionedByCaller($callerId)
+  {
+    if ($callerId === $this->user_id)
+    {
+      return true;
+    }
+    return false;
   }
 }
