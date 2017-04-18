@@ -19,6 +19,16 @@ class Action extends Model
     5 => "Re-open Call"
   ];
 
+  public function call()
+  {
+    return $this->belongsTo(Call::class);
+  }
+
+  public function user()
+  {
+    return $this->belongsTo(User::class);
+  }
+
   public function getActionTypeAttribute($action_type)
   {
     if(array_key_exists($action_type, $this->actions))
@@ -28,14 +38,9 @@ class Action extends Model
     throw new \Exception("Action does not exist");
   }
 
-  public function calls()
-  {
-    return $this->belongsTo(Call::class);
-  }
-
   public function actionedBy()
   {
-    $user = User::where('id', '=', "{$this->user_id}")->first();
+    $user = $this->user()->first();
     if(!$user)
     {
       throw new \Exception("User not found");
@@ -45,7 +50,7 @@ class Action extends Model
 
   public function caller()
   {
-    $call = Call::find($this->call_id);
+    $call = $this->call()->first();
     if(!$call)
     {
       throw new \Exception("Call not found");

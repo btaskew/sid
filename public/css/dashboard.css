@@ -142,6 +142,10 @@ body {
   font-size: 0.6em;
 }
 
+.help-text {
+  color: #5a7489;
+}
+
 /*
  * Placeholder dashboard ideas
  */

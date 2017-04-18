@@ -12,34 +12,22 @@ use App\Action;
 class CallController extends Controller
 {
 
-  public function activeCalls()
+  public function __construct()
   {
-    $calls = currentUser()->activeCalls();
-    return $this->show($calls, 'active');
+    $this->middleware('auth');
   }
 
-  public function closedCalls()
+  public function index($category)
   {
-    $calls = currentUser()->closedCalls();
-    return $this->show($calls, 'closed');
-  }
-
-  public function assignedCalls()
-  {
-    $calls = currentUser()->assignedCalls();
-    return $this->show($calls, 'assigned');
-  }
-
-  public function closedAssignedCalls()
-  {
-    $calls = currentUser()->closedAssignedCalls();
-    return $this->show($calls, 'closed assigned');
+    $calls = currentUser()->getCalls()->$category();
+    $category = camelToString($category);
+    return $this->show($calls, $category);
   }
 
   protected function show($calls, $category)
   {
     $actions = $this->loadActions($calls);
-    return view("calls.calls", compact('calls', 'actions', 'category'));
+    return view("calls.index", compact('calls', 'actions', 'category'));
   }
 
   public function create()
@@ -52,7 +40,7 @@ class CallController extends Controller
   {
     currentUser()->log(new Call(request(['title', 'description', 'priority', 'assigned_id'])));
     flash('Your call has been made. Please allow up to 1 week for a response.');
-    return redirect()->route('calls');
+    return redirect()->route('calls', ['category' => 'active']);
   }
 
   public function edit(Call $call)
@@ -72,7 +60,7 @@ class CallController extends Controller
   {
     if(!$calls)
     {
-      throw new \Exception("No calls found.", 1);
+      throw new \Exception("No calls found.");
     }
     $actions=[];
     foreach($calls as $call)
@@ -80,7 +68,7 @@ class CallController extends Controller
       $collection = $call->actions()->get();
       if(!$collection->isEmpty())
       {
-        $actions[$call->id] = $collection;
+        $actions[$call->id] = count($collection);
       }
     }
     return $actions;

@@ -20,35 +20,19 @@ class User extends Authenticatable
       return $this->hasMany(Call::class);
     }
 
+    public function actions()
+    {
+      return $this->hasMany(Action::class);
+    }
+
     public function notifications()
     {
       return $this->hasMany(Notification::class);
     }
 
-    public function activeCalls()
+    public function getCalls()
     {
-      return $this->calls()->where('status', '=', 0)->get();
-    }
-
-    public function closedCalls()
-    {
-      return $this->calls()->where('status', '=', 1)->get();
-    }
-
-    public function assignedCalls()
-    {
-      return Call::where([
-        ['assigned_id', '=', $this->id],
-        ['status', '=', 0],
-        ])->get();
-    }
-
-    public function closedAssignedCalls()
-    {
-      return Call::where([
-        ['assigned_id', '=', $this->id],
-        ['status', '=', 1],
-        ])->get();
+      return new GetCalls($this);
     }
 
     public static function staff()
@@ -73,13 +57,12 @@ class User extends Authenticatable
       return $this->name;
     }
 
-    public function sendNotification($message_id, $call_id, $recipient_id = null)
+    public function sendNotification($message_id, $call_id, $notification, $recipient_id = null)
     {
       if(!$recipient_id)
       {
         $recipient_id = $this->id;
       }
-      $notification = new Notification();
       $notification->store($message_id, $call_id, $recipient_id);
     }
 

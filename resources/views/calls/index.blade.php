@@ -4,7 +4,9 @@
 <div id="root">
 @if($calls->isEmpty())
   <h1>You have no {{$category}} calls</h1><br>
-  <a href="/calls/create"><button type="button" class="btn btn-primary">Create a call</button></a>
+  @if($category == "active" || $category == "closed")
+    <a href="/calls/create"><button type="button" class="btn btn-primary">Create a call</button></a>
+  @endif
 @else
 
   <h1>Current {{$category}} SID calls</h1>
@@ -24,11 +26,10 @@
 
         <div slot="body">{{$call->description}}</div>
 
-
         <div slot="actions">
           @if(array_key_exists($call->id, $actions))
             <div class="request">
-                <h4 class="has-actions">{{count($actions[$call->id])}} Action/s</h4>
+                <h4 class="has-actions">{{$actions[$call->id]}} Action/s</h4>
             </div>
             @else
             <h4>Awaiting first response</h4>
