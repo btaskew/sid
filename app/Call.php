@@ -44,8 +44,7 @@ class Call extends Model
     $action->assignIds($this->id);
     $this->updateStatus($action->action_type);
     $this->actions()->save($action);
-    $notification = new Notification();
-    $notification->send($this, $action);
+    (new Notification)->send($this, $action);
   }
 
   protected function updateStatus($action_type)
@@ -69,6 +68,12 @@ class Call extends Model
   public function assignedTo()
   {
     return User::find($this->assigned_id);
+  }
+
+  public function setResponded()
+  {
+    $this->first_response = 1;
+    $this->save();
   }
 
 

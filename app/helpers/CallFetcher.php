@@ -1,8 +1,10 @@
 <?php
 
-namespace App;
+namespace App\helpers;
+use App\User;
+use App\Call;
 
-class GetCalls
+class CallFetcher
 {
   protected $user;
 

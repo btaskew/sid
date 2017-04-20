@@ -16,7 +16,6 @@
     <form slot="delete" action="notifications/{{$id}}/delete" method="post">
       {{csrf_field()}}
       <input type="submit" class="delete-notification" name="delete-notification" value="X">
-
     </form>
 
     {{$message['message']}}
@@ -32,8 +31,10 @@
 @endsection
 
 @section('sidebar')
+@if($notifications)
 <form slot="delete" action="/notifications/delete" method="post">
   {{csrf_field()}}
   <input type="submit" class="btn btn-primary" name="delete-notification" value="Delete All Notifications">
 </form>
+@endif
 @endsection

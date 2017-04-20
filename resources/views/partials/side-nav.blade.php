@@ -1,4 +1,5 @@
-<div class="col-sm-3 col-md-2 sidebar">
+<div class="col-sm-3 col-md-2 sidebar" id="Sidebar">
+  <a id="hideMenu" href="javascript:void(0);"onclick="hideResponsiveMenu()">&times;</a>
   @if(auth()->check())
   <ul class="nav nav-sidebar">
       <li><a href="/calls/create">Create a call</a></li>
@@ -14,3 +15,4 @@
   @endif
   @yield('sidebar')
 </div>
+<a id="showMenu" href="javascript:void(0);"onclick="showResponsiveMenu()">&#9776;</a>

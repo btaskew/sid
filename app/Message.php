@@ -22,10 +22,10 @@ class Message extends Model
     return $this->hasMany(Notification::class);
   }
 
-  public static function setMessage($action_type)
+  public static function setMessage($actionType)
   {
     $setter = new static;
-    $message = array_search($action_type, $setter->messages);
+    $message = array_search($actionType, $setter->messages);
     if(!$message)
     {
       throw new \Exception("Message not found");

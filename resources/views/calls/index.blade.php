@@ -27,11 +27,11 @@
         <div slot="body">{{$call->description}}</div>
 
         <div slot="actions">
-          @if(array_key_exists($call->id, $actions))
+          @if(array_key_exists($call->id, $actions) && $call->first_response == 1)
             <div class="request">
                 <h4 class="has-actions">{{$actions[$call->id]}} Action/s</h4>
             </div>
-            @else
+          @else
             <h4>Awaiting first response</h4>
           @endif
         </div>

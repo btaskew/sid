@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\helpers\CallFetcher;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
@@ -30,9 +31,14 @@ class User extends Authenticatable
       return $this->hasMany(Notification::class);
     }
 
-    public function getCalls()
+    public function getCalls($category)
     {
-      return new GetCalls($this);
+      $callFetcher = new CallFetcher($this);
+      if(method_exists($callFetcher, $category))
+      {
+        return $callFetcher->$category();
+      }
+      throw new \Exception("Call cetegory does not exist");
     }
 
     public static function staff()
@@ -45,7 +51,7 @@ class User extends Authenticatable
     public function log(Call $call)
     {
       $this->calls()->save($call);
-      $this->sendNotification(0, $call->id, $call->assigned_id);
+      (new Notification)->notifyNewCall(0, $call->id, $call->assigned_id);
     }
 
     public function formatName()
@@ -55,15 +61,6 @@ class User extends Authenticatable
         return $this->name.' ('.$this->department.')';
       }
       return $this->name;
-    }
-
-    public function sendNotification($message_id, $call_id, $notification, $recipient_id = null)
-    {
-      if(!$recipient_id)
-      {
-        $recipient_id = $this->id;
-      }
-      $notification->store($message_id, $call_id, $recipient_id);
     }
 
     public function getNotifications()

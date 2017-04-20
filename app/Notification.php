@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Notification extends Model
 {
+  protected $actionType;
+
   public function message()
   {
     return $this->hasOne(Message::class);
@@ -16,15 +18,7 @@ class Notification extends Model
     return $this->belongsTo(User::class);
   }
 
-  public function send(Call $call, Action $action)
-  {
-    $parameters = $this->setParameters($call, $action);
-
-    $user = User::find($parameters["recipient"]);
-    $user->sendNotification($parameters["message"], $call->id, $this);
-  }
-
-  public function store($message_id, $call_id, $user_id)
+  public function notifyNewCall($message_id, $call_id, $user_id)
   {
     $this->message_id = $message_id;
     $this->call_id = $call_id;
@@ -32,32 +26,30 @@ class Notification extends Model
     $this->save();
   }
 
-  protected function setParameters(Call $call, Action $action)
+  public function send(Call $call, Action $action)
   {
-    $parameters = [
-      "recipient" => null,
-      "message" => null,
-      "action" => $action->action_type,
-    ];
-
-    $callerAction = $action->isActionedByCaller($call->user_id);
-
-    $parameters = $this->setRecipient($parameters, $callerAction, $call);
-    $parameters["message"] = Message::setMessage($parameters["action"]);
-
-    return $parameters;
+    $this->setParameters($call, $action);
+    $this->save();
   }
 
-  protected function setRecipient($parameters, $callerAction, Call $call)
+  protected function setParameters(Call $call, Action $action)
   {
-    if ($callerAction)
+    $this->actionType = $action->action_type;
+    $this->setRecipient($call, $action);
+    $this->message_id = Message::setMessage($this->actionType);
+    $this->call_id = $call->id;
+  }
+
+  protected function setRecipient(Call $call, Action $action)
+  {
+    if ($action->isActionedByCaller($call->user_id))
     {
-      $parameters["recipient"] = $call->assigned_id;
-      $parameters["action"] .= " Staff";
-      return $parameters;
+      $this->user_id = $call->assigned_id;
+      $this->actionType .= " Staff";
+      return;
     }
-    $parameters["recipient"] = $call->user_id;
-    return $parameters;
+    $this->user_id = $call->user_id;
+    $call->setResponded();
   }
 
 }

@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="/css/dashboard.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
     <script src="https://unpkg.com/vue@2.2.6"></script>
+    <script src="/js/responsive.js"></script>
     <title>SID</title>
   </head>
   <body>

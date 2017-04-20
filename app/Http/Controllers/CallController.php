@@ -8,6 +8,7 @@ use App\Http\Requests\ActionRequest;
 use App\User;
 use App\Call;
 use App\Action;
+use App\Notification;
 
 class CallController extends Controller
 {
@@ -19,7 +20,7 @@ class CallController extends Controller
 
   public function index($category)
   {
-    $calls = currentUser()->getCalls()->$category();
+    $calls = currentUser()->getCalls($category);
     $category = camelToString($category);
     return $this->show($calls, $category);
   }
