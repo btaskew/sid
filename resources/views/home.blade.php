@@ -32,7 +32,7 @@
 
 @section('sidebar')
 @if($notifications)
-<form slot="delete" action="/notifications/delete" method="post">
+<form action="/notifications/delete" method="post">
   {{csrf_field()}}
   <input type="submit" class="btn btn-primary" name="delete-notification" value="Delete All Notifications">
 </form>

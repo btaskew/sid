@@ -8,7 +8,6 @@ use App\Http\Requests\ActionRequest;
 use App\User;
 use App\Call;
 use App\Action;
-use App\Notification;
 
 class CallController extends Controller
 {

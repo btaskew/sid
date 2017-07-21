@@ -15,6 +15,9 @@ Route::get('/logout', 'SessionsController@destroy');
 
 Route::get('/calls/create', 'CallController@create');
 Route::get('/calls/{category}', 'CallController@index')->name('calls');
+Route::get('/calls', function() {
+  return redirect()->route('calls', ['category' => 'active']);
+});
 Route::post('/calls', 'CallController@store');
 Route::get('/calls/{call}/edit', 'CallController@edit');
 Route::post('/calls/{call}/edit', 'CallController@save');
